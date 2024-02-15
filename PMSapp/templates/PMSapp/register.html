@@ -1,0 +1,21 @@
+{% extends 'PMSapp\base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <body>
+        <div class="center-div" style="width: 50%;">
+            <h3> Register Now! </h3>
+            <hr><br>
+
+            <form action="" method="post" autocomplete="off">
+                {% csrf_token %}
+                <fieldset>
+                    {{ RegisterForm|crispy }}
+                </fieldset>
+                <button type="submit" class="btn btn-dark">Register</button>
+                <a class="btn btn-outline-dark" href="{% url 'home' %}">Return</a>
+            </form>
+        </div>
+    </body>
+{% endblock %}

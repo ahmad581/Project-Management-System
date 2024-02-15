@@ -1,0 +1,41 @@
+.center-div {
+    margin: 10px auto;
+}
+
+.btn-outline-dark {
+    --bs-btn-hover-bg: #93c;
+}
+
+.btn-dark {
+    --bs-btn-hover-bg: #2487b6;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: auto auto auto ;
+}
+
+.card {
+    margin: 10px auto;
+    width: 400px;
+}
+
+.navbar {
+    margin-bottom: 10px;
+}
+
+.accordion{
+    margin-bottom: 20px;
+}
+/* .form-group{
+    display: flex;
+}
+
+.form-control {
+    width: auto;
+    margin: 10px auto;
+}
+
+.form-label {
+    width: 25px;
+} */

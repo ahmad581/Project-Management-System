@@ -1,0 +1,87 @@
+{% extends 'PMSapp\base.html' %}
+
+{% block content %}
+    <body>
+        <table class="table table-hover">
+            
+          <thead class="table-secondary">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Project Name</th>
+              <th scope="col">Creation Date</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Employees</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr class="table-dark">
+                <th scope="col">{{project.id}}</th>
+                <th scope="col">{{project.project_name}}</th>
+                <th scope="col">{{project.creation_date}}</th>
+                <th scope="col">{{project.start_date}}</th>
+                <th scope="col">{{project.end_date}}</th>
+                <th scope="col">
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-haspopup="true" aria-expanded="false">View</a>
+                  <div class="dropdown-menu">
+                    {% if project.employees.all %}
+                      {% for emp in project.employees.all %}
+                      <a class="dropdown-item" href="#">{{emp}}</a>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                </th>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="accordion" id="accordionExample">
+          {% if tasks %}
+            {% for task in tasks %}
+              <div class="accordion-item">
+                {% if task.status == True %}
+                  <h2 class="accordion-header btn-primary" id="unfinishedheading{{ task.id }}">
+                    <button class="accordion-button btn-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ task.id }}" aria-expanded="false" aria-controls="collapse{{ task.id }}">
+                      Task # {{ task.task_number }}
+                    </button>
+                  </h2>
+                {% else %}
+                  <h2 class="accordion-header btn-success" id="heading{{ task.id }}">
+                    <button class="accordion-button btn-success collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ task.id }}" aria-expanded="false" aria-controls="collapse{{ task.id }}">
+                      Task # {{ task.task_number }}
+                    </button>
+                  </h2>
+                {% endif %}
+                <div id="collapse{{ task.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ task.id }}" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{ task }}
+                  </div>
+                  <div class="accordion-body">
+                    <a type="button" class="btn btn-outline-success" href="{% url 'task' task.id %}">View</a>
+                    <a type="button" class="btn btn-outline-warning" href="{% url 'update-task' project.id task.id %}">Update</a>
+                    <a type="button" class="btn btn-outline-danger" href="{% url 'delete-task' task.id %}">Delete</a>
+                    <a type="button" class="btn btn-outline-primary" href="{% url 'finish-task' task.id %}">Finish</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div>
+          <a type="button" class="btn btn-outline-dark" href="{% url 'dashboard' %}">Return</a>
+          <!-- Chang this to admin not a super user  -->
+          {% if user.is_superuser %}
+            <a type="button" class="btn btn-outline-success" href="{% url 'create-task' project.id %}">Create Task</a>
+            <a type="button" class="btn btn-outline-warning" href="{% url 'update-project' project.id %}">Update</a>
+            <a type="button" class="btn btn-outline-danger" href="{% url 'delete-project' project.id %}">Delete</a>
+          {% endif %}
+          </div>
+
+          <div>
+
+          </div>
+    </body>
+{% endblock %}

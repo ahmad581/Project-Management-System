@@ -1,0 +1,21 @@
+{% extends 'PMSapp\base.html' %}
+
+{% block content %}
+    <body>
+        <div class="text-center ">
+            {% if user.is_authenticated %}
+                <h3>Welcome, {{user}}</h3><br>
+                    
+                <h5> Manage All Your Projects effectively! </h5><hr><br>
+        
+                <a class="btn btn-dark" type="button" href="{% url 'dashboard' %}"> Dashboard</a>
+            {% else %}
+                <h3> PMS... Project Management at it's finest! </h3><br>
+            
+                <h5> Manage All Your Projects effectively! </h5><hr><br>
+        
+                <a class="btn btn-dark" type="button" href="{% url 'register' %}"> Create your account &nbsp; <i class="fa fa-user-plus" aria-hidden="true"></i> </a>
+            {% endif %}
+        </div>
+    </body>
+{% endblock %}

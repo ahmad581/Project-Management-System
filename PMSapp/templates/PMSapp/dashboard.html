@@ -1,0 +1,24 @@
+{% extends 'PMSapp\base.html' %}
+
+{% block content %}
+    <body>
+        <h2>Welcome, {{user}}</h2>
+
+        {% if projects %}
+            <div class="card-container">
+                {%for project in projects%}
+                    <div class="card border-dark mb-3" style="max-width: 20rem;">
+                        <div class="card-header">Project Number {{project.id}}</div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{project.project_name}}</h4>
+                            <p><strong>Project Creation Date: </strong>{{project.creation_date}}</p>
+                            <p><strong>Project Start Date: </strong>{{project.start_date}}</p>
+                            <p><strong>Project End Date: </strong>{{project.end_date}}</p>
+                            <p><strong><a href="{% url 'project' project.id %}">View</a></strong></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </body>
+{% endblock %}

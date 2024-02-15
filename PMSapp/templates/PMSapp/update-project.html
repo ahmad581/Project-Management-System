@@ -1,0 +1,58 @@
+{% extends 'PMSapp\base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <body>
+        <h3>Update Project #{{project.id}}</h3>
+            <table class="table table-hover">
+            
+                <thead class="table-secondary">
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Project Name</th>
+                    <th scope="col">Creation Date</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Employees</th>
+                  </tr>
+                </thead>
+      
+                <tbody>
+                  <tr class="table-dark">
+                      <th scope="col">{{project.id}}</th>
+                      <th scope="col">{{project.project_name}}</th>
+                      <th scope="col">{{project.creation_date}}</th>
+                      <th scope="col">{{project.start_date}}</th>
+                      <th scope="col">{{project.end_date}}</th>
+                      <th scope="col">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                         aria-haspopup="true" aria-expanded="false">View</a>
+                        <div class="dropdown-menu">
+                          {% if project.employees.all %}
+                            {% for emp in project.employees.all %}
+                            <a class="dropdown-item" href="#">{{emp}}</a>
+                            {% endfor %}
+                          {% endif %}
+                        </div>
+                      </th>
+                  </tr>
+                </tbody>
+              </table>
+              <hr>
+        <div class="center-div" style="width: 50%;">
+            <form method="post" autocomplete="off">
+                {% csrf_token %}
+                <fieldset>
+                    <div class="form-group">
+                        <div class="form-floating mb-3">
+                            {{ UpadteProjectsForm|crispy }}
+                        </div>
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn btn-dark">Update Project</button>
+                <a class="btn btn-outline-dark" href="{% url 'dashboard' %}">Return</a>
+            </form>
+        </div>
+    </body>
+{% endblock %}

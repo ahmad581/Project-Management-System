@@ -1,0 +1,44 @@
+{% extends 'PMSapp\base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <body>
+        <h3>This is {{task.title}} Task</h3>
+
+        <table class="table table-hover">
+            
+            <thead class="table-secondary">
+              <tr>
+                <th scope="col">Task Number</th>
+                <th scope="col">task Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Employees Working On It</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <tr class="table-dark">
+                  <th scope="col">{{task.task_number}}</th>
+                  <th scope="col">{{task.title}}</th>
+                  <th scope="col">{{task.description}}</th>
+                  <th scope="col">{{task.due_date}}</th>
+                  <th scope="col">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                     aria-haspopup="true" aria-expanded="false">View</a>
+                    <div class="dropdown-menu">
+                      {% if task.employees.all %}
+                        {% for emp in task.employees.all %}
+                        <a class="dropdown-item" href="#">{{emp}}</a>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  </th>
+              </tr>
+            </tbody>
+          </table>
+
+        <a type="button" class="btn btn-outline-dark" href="{% url 'project' task.project.id %}">Return</a>
+    </body>
+{% endblock  %}
